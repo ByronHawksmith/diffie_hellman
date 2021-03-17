@@ -1,22 +1,45 @@
-P = 23  # client pub key
-a = 4  # client priv key
-G = 9  # server pub key
-b = 3  # server priv key
+def client_step_one(P, a, G):
+    # client computes public value of x
+    x = pow(G, a) % P
 
-# client knows servers public num
-# server knows client public num
+    # client notifies client of public value of x
+    return x
 
-# client computes public value of x
-x = pow(G, a) % P
 
-# server computed public value of y
-y = pow(G, b) % P
+def server_step_one(G, b, P):
+    # server computes public value of y
+    y = pow(G, b) % P
 
-# client computes symmetric key (KeyA)
-key_a = pow(y, a) % P
+    # server notifies client of public value of y
+    return y
 
-# server computes symmetric key (KeyB)
-key_b = pow(x, b) % P
+
+def client_step_two(y, a, P):
+    # client computes symmetric key (KeyA)
+    key_a = pow(y, a) % P
+
+    # compare keys
+    return key_a
+
+
+def server_step_two(x, b, P):
+    # server computes symmetric key (KeyB)
+    key_b = pow(x, b) % P
+
+    # compare keys
+    return key_b
+
+
+G = 69  # server pub key
+b = 958  # server priv key
+P = 3213  # client pub key
+a = 5  # client priv key
+
+x = client_step_one(P, a, G)
+y = server_step_one(G, b, P)
+
+key_a = client_step_two(y, a, P)
+key_b = server_step_two(x, b, P)
 
 print(key_a)
 print(key_b)
