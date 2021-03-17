@@ -2,7 +2,7 @@ def client_step_one(P, a, G):
     # client computes public value of x
     x = pow(G, a) % P
 
-    # client notifies client of public value of x
+    # client notifies server of public value of x
     return x
 
 
